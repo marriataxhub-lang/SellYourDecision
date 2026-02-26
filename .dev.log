@@ -1,0 +1,27 @@
+
+> public-decision-platform@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.26
+  - Local:        http://localhost:3003
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2.3s
+ ○ Compiling / ...
+ ✓ Compiled / in 5.4s (547 modules)
+ GET / 200 in 6921ms
+ ○ Compiling /create ...
+ ✓ Compiled /create in 674ms (557 modules)
+ ○ Compiling /api/decisions ...
+ ✓ Compiled /api/decisions in 750ms (324 modules)
+ POST /api/decisions 200 in 3222ms
+ ○ Compiling /d/[id] ...
+ ✓ Compiled /d/[id] in 949ms (593 modules)
+ ○ Compiling /api/vote ...
+ ✓ Compiled /api/vote in 1982ms (344 modules)
+ POST /api/vote 200 in 3020ms
+ GET /d/3d69c9eb-2542-47e0-a6bb-fafda04aff26 200 in 2756ms
+ ○ Compiling /rules ...
+ ✓ Compiled /rules in 1606ms (568 modules)
+ ✓ Compiled in 2.8s (582 modules)
