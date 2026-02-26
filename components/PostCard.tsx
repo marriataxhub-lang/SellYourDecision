@@ -22,7 +22,7 @@ export default function PostCard({ decision, view }: Props) {
             <Link href={`/d/${decision.id}`} className="line-clamp-1 text-sm font-semibold text-slate-900 hover:text-orange-600">
               {decision.title}
             </Link>
-            <p className="mt-1 text-xs text-slate-500">{decision.category} · {totalVotes} votes</p>
+            <p className="mt-1 text-xs text-slate-500">{decision.category} | {totalVotes} votes</p>
           </div>
           <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${ended ? "bg-slate-100 text-slate-600" : "bg-emerald-100 text-emerald-700"}`}>
             {ended ? "Ended" : "Active"}
@@ -43,7 +43,7 @@ export default function PostCard({ decision, view }: Props) {
 
       <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-500">
         <span>{ended ? "Voting ended" : getTimeRemainingLabel(decision.expires_at)}</span>
-        <span>·</span>
+        <span>|</span>
         <span>{totalVotes} total votes</span>
       </div>
 
