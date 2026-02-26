@@ -71,35 +71,37 @@ export default function CreatePage() {
   };
 
   return (
-    <section className="panel mx-auto max-w-3xl overflow-hidden p-6 sm:p-8">
-      <h1 className="text-3xl font-black text-white">Create a decision</h1>
-      <p className="mt-2 text-sm text-slate-300">Add clear context so voters can pick a confident majority outcome.</p>
+    <section className="mx-auto max-w-3xl space-y-3">
+      <div className="panel p-4 sm:p-5">
+        <h1 className="text-xl font-semibold text-slate-900">Create a decision</h1>
+        <p className="mt-2 text-sm text-slate-600">Write a clear scenario, set expiry, and let the community vote anonymously.</p>
+      </div>
 
-      <form onSubmit={onSubmit} className="mt-6 space-y-4">
+      <form onSubmit={onSubmit} className="panel space-y-4 p-4 sm:p-5">
         <div>
-          <label className="mb-1 block text-sm font-semibold text-slate-200">Title *</label>
-          <input name="title" maxLength={90} required className="field" />
+          <label className="mb-1 block text-sm font-semibold text-slate-700">Title *</label>
+          <input name="title" maxLength={90} required className="field" placeholder="Should I take this offer or stay where I am?" />
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-semibold text-slate-200">Details / Context *</label>
-          <textarea name="details" maxLength={800} required rows={5} className="field" />
+          <label className="mb-1 block text-sm font-semibold text-slate-700">Details / Context *</label>
+          <textarea name="details" maxLength={800} required rows={5} className="field" placeholder="Share constraints, priorities, and timeline so votes are meaningful." />
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-1 block text-sm font-semibold text-slate-200">Option A *</label>
+            <label className="mb-1 block text-sm font-semibold text-slate-700">Option A *</label>
             <input name="optionA" maxLength={40} required className="field" />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-semibold text-slate-200">Option B *</label>
+            <label className="mb-1 block text-sm font-semibold text-slate-700">Option B *</label>
             <input name="optionB" maxLength={40} required className="field" />
           </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-1 block text-sm font-semibold text-slate-200">Duration *</label>
+            <label className="mb-1 block text-sm font-semibold text-slate-700">Duration *</label>
             <select name="duration" className="field">
               <option value="24">24 hours</option>
               <option value="48">48 hours</option>
@@ -108,7 +110,7 @@ export default function CreatePage() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-semibold text-slate-200">Category *</label>
+            <label className="mb-1 block text-sm font-semibold text-slate-700">Category *</label>
             <select name="category" className="field">
               {categories.map((category) => (
                 <option key={category} value={category}>{category}</option>
@@ -117,17 +119,17 @@ export default function CreatePage() {
           </div>
         </div>
 
-        <label className="flex items-start gap-2 rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-slate-200">
+        <label className="flex items-start gap-2 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
           <input type="checkbox" name="promise" className="mt-1" />
           I promise to follow the majority result.
         </label>
 
-        {error && <p className="text-sm text-rose-300">{error}</p>}
+        {error && <p className="text-sm text-rose-600">{error}</p>}
 
         <button
           type="submit"
           disabled={loading}
-          className="rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 px-5 py-2.5 text-sm font-black text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? "Publishing..." : "Publish decision"}
         </button>

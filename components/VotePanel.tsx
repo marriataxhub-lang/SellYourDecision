@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Toast from "@/components/Toast";
 
 type Props = {
   decisionId: string;
@@ -20,14 +21,14 @@ export default function VotePanel({ decisionId, optionA, optionB, hasVotedByCook
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [info, setInfo] = useState<string | null>(hasVotedByCookie ? "You already voted on this browser." : null);
+  const [toast, setToast] = useState<string | null>(null);
+  const [toastTone, setToastTone] = useState<"success" | "error">("success");
 
   const submitVote = async (choice: "A" | "B") => {
     if (hasVotedByCookie || isExpired) return;
 
     setLoading(true);
     setError(null);
-    setInfo(null);
 
     try {
       const response = await fetch("/api/vote", {
@@ -47,11 +48,14 @@ export default function VotePanel({ decisionId, optionA, optionB, hasVotedByCook
         throw new Error(data.message || "Could not submit vote.");
       }
 
-      setInfo("Thanks for voting. Live results are shown below.");
+      setToastTone("success");
+      setToast("Vote recorded.");
       router.refresh();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Could not submit vote.";
       setError(message);
+      setToastTone("error");
+      setToast(message);
     } finally {
       setLoading(false);
     }
@@ -67,22 +71,23 @@ export default function VotePanel({ decisionId, optionA, optionB, hasVotedByCook
         <button
           disabled={loading || hasVotedByCookie}
           onClick={() => submitVote("A")}
-          className="rounded-xl border border-cyan-300/25 bg-cyan-300/10 px-4 py-3 text-left text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/20 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 text-left text-sm font-semibold text-orange-700 transition hover:bg-orange-100 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <span className="block text-xs uppercase tracking-wide text-cyan-300">Vote A</span>
-          <span className="block text-sm">{optionA}</span>
+          <span className="block text-xs uppercase tracking-wide text-orange-500">Vote A</span>
+          <span className="block text-sm text-slate-900">{optionA}</span>
         </button>
         <button
           disabled={loading || hasVotedByCookie}
           onClick={() => submitVote("B")}
-          className="rounded-xl border border-emerald-300/25 bg-emerald-300/10 px-4 py-3 text-left text-sm font-semibold text-emerald-100 transition hover:bg-emerald-300/20 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-left text-sm font-semibold text-sky-700 transition hover:bg-sky-100 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <span className="block text-xs uppercase tracking-wide text-emerald-300">Vote B</span>
-          <span className="block text-sm">{optionB}</span>
+          <span className="block text-xs uppercase tracking-wide text-sky-500">Vote B</span>
+          <span className="block text-sm text-slate-900">{optionB}</span>
         </button>
       </div>
-      {error && <p className="text-sm text-rose-300">{error}</p>}
-      {info && <p className="text-sm text-emerald-300">{info}</p>}
+      {hasVotedByCookie && <p className="text-sm text-slate-500">You already voted on this browser.</p>}
+      {error && <p className="text-sm text-rose-600">{error}</p>}
+      <Toast message={toast} tone={toastTone} onClose={() => setToast(null)} />
     </div>
   );
 }
